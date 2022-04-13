@@ -9,3 +9,136 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  isShop        Boolean?
+  Shop          Shop?
+  Profile       Profile?
+}
+
+model Shop {
+  id          Int           @unique @default(autoincrement())
+  phoneNum    Int
+  name        String
+  logo        String
+  Items       Item[]
+  User        User?         @relation(fields: [userId], references: [id])
+  userId      String?       @unique
+  ShopOnOrder ShopOnOrder[]
+}
+
+model Profile {
+  id       Int      @unique @default(autoincrement())
+  phoneNum Int
+  name     String
+  User     User?    @relation(fields: [userId], references: [id])
+  userId   String?  @unique
+  order    Order[]
+  Review   Review[]
+}
+
+model Item {
+  id           Int           @unique @default(autoincrement())
+  name         String
+  price        Int
+  description  String
+  image        String?
+  itemOnOrders ItemOnOrder[]
+  reviews      Review[]
+  shop         Shop          @relation(fields: [shopId], references: [id])
+  shopId       Int
+}
+
+model ItemOnOrder {
+  id       Int    @unique @default(autoincrement())
+  quantity Int
+  subtotal Int
+  item     Item?  @relation(fields: [itemId], references: [id])
+  itemId   Int?
+  order    Order? @relation(fields: [orderId], references: [id])
+  orderId  Int?
+}
+
+model Order {
+  id           Int           @unique @default(autoincrement())
+  status       Status        @default(paid)
+  totalPrice   Int
+  address      String?
+  itemOnOrders ItemOnOrder[]
+  shopOnOrders ShopOnOrder[]
+  profile      Profile       @relation(fields: [profileId], references: [id])
+  profileId    Int
+}
+
+enum Status {
+  paid
+  processing
+  completed
+}
+
+model ShopOnOrder {
+  id      Int     @unique @default(autoincrement())
+  process Process @default(initialized)
+  shop    Shop    @relation(fields: [shopId], references: [id])
+  shopId  Int
+  order   Order   @relation(fields: [orderId], references: [id])
+  orderId Int
+}
+
+enum Process {
+  initialized
+  packing
+  sent
+}
+
+model Review {
+  id        Int     @unique @default(autoincrement())
+  rating    Int
+  comment   String?
+  item      Item    @relation(fields: [itemId], references: [id])
+  itemId    Int
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId Int
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
