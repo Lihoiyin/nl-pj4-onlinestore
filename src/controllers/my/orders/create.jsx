@@ -15,16 +15,14 @@ const controllersApiProfileCreate = async (req, res) => {
         profileId: verifiedData.profileId,
         shopId: verifiedData.shopId,
         itemOnOrders: {
-          create: {
-            quantity: verifiedData.itemOnOrders.quantity,
-            subtotal: verifiedData.itemOnOrders.subtotal,
-            item: {
-              connect: { id: verifiedData.itemOnOrders.itemId }
-            }
-          }
+          create: verifiedData.itemOnOrders.map((itemOnOrder) => ({
+            quantity: itemOnOrder.quantity,
+            subtotal: itemOnOrder.subtotal,
+            connect: itemOnOrder.items.map((item) => ({ itemId: Number(item.itemId) })) || []
+          })) || []
         },
         shopOnOrders: {
-          create: { shopId: verifiedData.shop.shopId }
+          create: verifiedData.shops.map((shop) => ({ shopId: Number(shop.shopId) })) || []
         }
       }
     })

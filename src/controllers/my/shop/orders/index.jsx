@@ -14,6 +14,7 @@ const controllersShopOrdersIndex = async (req, res) => {
         itemOnOrders: true
       }
     })
+
     const orders = foundOrders.map((foundOrder) => {
       const { address, id } = foundOrder
       const items = foundOrder.itemOnOrders.filter((itemOnOrder) => itemOnOrder.item.shopId === req.session.shopId)
