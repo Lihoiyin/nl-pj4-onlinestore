@@ -2,7 +2,7 @@ import nc from '@/controllers/_helpers/nc'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
 
-const controllersItemsIndex = async (req, res) => {
+const controllersApiMyItemsIndex = async (req, res) => {
   try {
     const foundItems = await prisma.Item.findMany({
       where: {
@@ -16,4 +16,4 @@ const controllersItemsIndex = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersItemsIndex)
+  .use(controllersApiMyItemsIndex)

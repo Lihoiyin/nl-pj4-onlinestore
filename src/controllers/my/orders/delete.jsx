@@ -2,7 +2,7 @@ import nc from '@/controllers/_helpers/nc'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
 
-const controllersMyOrdersDelete = async (req, res) => {
+const controllersApiMyOrdersDelete = async (req, res) => {
   try {
     const { query: { orderId } } = req
     const deletedOrder = await prisma.order.delete({
@@ -17,4 +17,4 @@ const controllersMyOrdersDelete = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersMyOrdersDelete)
+  .use(controllersApiMyOrdersDelete)

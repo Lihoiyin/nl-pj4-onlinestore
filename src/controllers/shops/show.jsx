@@ -2,7 +2,7 @@ import nc from '@/controllers/_helpers/nc'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
 
-const controllersShopsShow = async (req, res) => {
+const controllersApiShopsShow = async (req, res) => {
   try {
     const { query: { shopId } } = req
     const foundShop = await prisma.shop.findUnique({
@@ -17,4 +17,4 @@ const controllersShopsShow = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersShopsShow)
+  .use(controllersApiShopsShow)

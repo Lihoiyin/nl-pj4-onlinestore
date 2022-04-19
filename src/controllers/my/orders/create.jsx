@@ -3,7 +3,7 @@ import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import { schema } from '@/controllers/my/orders/_schemas'
 
-const controllersApiProfileCreate = async (req, res) => {
+const controllersApiMyOrdersCreate = async (req, res) => {
   try {
     const { body } = req
     const verifiedData = await schema.validate(body, { abortEarly: false, stripUnknown: true })
@@ -34,4 +34,4 @@ const controllersApiProfileCreate = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiProfileCreate)
+  .use(controllersApiMyOrdersCreate)

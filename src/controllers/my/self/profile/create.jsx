@@ -3,7 +3,7 @@ import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import { profileSchema } from '@/controllers/my/self/_schemas'
 
-const controllersApiProfileCreate = async (req, res) => {
+const controllersApiMyProfileCreate = async (req, res) => {
   try {
     const { body } = req
     const verifiedData = await profileSchema.validate(body, { abortEarly: false, stripUnknown: true })
@@ -23,4 +23,4 @@ const controllersApiProfileCreate = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiProfileCreate)
+  .use(controllersApiMyProfileCreate)

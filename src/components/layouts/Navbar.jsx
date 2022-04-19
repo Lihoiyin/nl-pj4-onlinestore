@@ -10,10 +10,11 @@ export default function CompsLayoutsNavbar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} href="/"><a className="navbar-brand">Next Items</a></Navbar.Brand>
+        <Navbar.Brand as={Link} href="/"><a className="navbar-brand">Online Store</a></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            <Nav.Link as={Link} href="/swr"><a className="nav-link">SWR</a></Nav.Link>
             <Nav.Link as={Link} href="/private"><a className="nav-link">Private</a></Nav.Link>
             {
               session ? (

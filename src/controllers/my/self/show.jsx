@@ -2,7 +2,7 @@ import nc from '@/controllers/_helpers/nc'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
 
-const controllersMySelfShow = async (req, res) => {
+const controllersApiMySelfShow = async (req, res) => {
   try {
     const foundUser = await prisma.Item.findUnique({
       where: {
@@ -20,4 +20,4 @@ const controllersMySelfShow = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersMySelfShow)
+  .use(controllersApiMySelfShow)

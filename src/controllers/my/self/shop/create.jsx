@@ -4,7 +4,7 @@ import handleErrors from '@/controllers/_helpers/handleErrors'
 import { shopSchema } from '@/controllers/my/self/_schemas'
 import uploadFileAsync from '@/controllers/_helpers/upload-file'
 
-const controllersApiShopCreate = async (req, res) => {
+const controllersApiMyShopCreate = async (req, res) => {
   try {
     const { body } = req
     const verifiedData = await shopSchema.validate(body, { abortEarly: false, stripUnknown: true })
@@ -26,4 +26,4 @@ const controllersApiShopCreate = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiShopCreate)
+  .use(controllersApiMyShopCreate)
