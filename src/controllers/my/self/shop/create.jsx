@@ -2,13 +2,14 @@ import nc from '@/controllers/_helpers/nc'
 import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import { shopSchema } from '@/controllers/my/self/_schemas'
-import uploadFileAsync from '@/controllers/_helpers/upload-file'
+import { getSession } from 'next-auth/react'
 
 const controllersApiMyShopCreate = async (req, res) => {
   try {
+    const session = await getSession({ req })
+    console.log(session)
     const { body } = req
     const verifiedData = await shopSchema.validate(body, { abortEarly: false, stripUnknown: true })
-    await uploadFileAsync(verifiedData, req)
 
     const newShop = await prisma.shop.create({
       data: {

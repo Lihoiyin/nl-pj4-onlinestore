@@ -7,6 +7,5 @@ export const profileSchema = yup.object({
 
 export const shopSchema = yup.object({
   phoneNum: yup.number().required(),
-  name: yup.string().required(),
-  logo: yup.mixed()
+  name: yup.string().required()
 })
