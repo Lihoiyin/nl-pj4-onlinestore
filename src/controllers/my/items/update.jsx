@@ -3,9 +3,11 @@ import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import { schema } from '@/controllers/my/items/_schemas'
 import uploadFileAsync from '@/controllers/_helpers/upload-file'
+import { getSession } from 'next-auth/react'
 
 const controllersApiMyItemsUpdate = async (req, res) => {
   try {
+    const session = await getSession({ req })
     const { body, query: { itemId } } = req
     const verifiedData = await schema.validate(body, { abortEarly: false, stripUnknown: true })
     await uploadFileAsync(verifiedData, req)
@@ -19,7 +21,7 @@ const controllersApiMyItemsUpdate = async (req, res) => {
         description: verifiedData.description,
         price: verifiedData.price,
         image: verifiedData.image || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg',
-        shopId: Number(req.session.shopId)
+        shopId: Number(session.user.shopId)
       }
     })
 

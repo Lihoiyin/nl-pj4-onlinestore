@@ -6,8 +6,8 @@ import { getSession } from 'next-auth/react'
 
 const controllersApiMyProfileCreate = async (req, res) => {
   try {
-    const session = await getSession({ req })
     const { body } = req
+    const session = await getSession({ req })
     const verifiedData = await profileSchema.validate(body, { abortEarly: false, stripUnknown: true })
 
     const newProfile = await prisma.profile.create({

@@ -1,9 +1,11 @@
 import nc from '@/controllers/_helpers/nc'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
+import { getSession } from 'next-auth/react'
 
 const controllersApiMyShopOrdersShow = async (req, res) => {
   try {
+    const session = await getSession({ req })
     const { query: { orderId } } = req
     const foundOrder = await prisma.order.findUnique({
       where: {
@@ -14,7 +16,7 @@ const controllersApiMyShopOrdersShow = async (req, res) => {
       }
     })
     const { address, id } = foundOrder
-    const items = foundOrder.itemOnOrders.filter((itemOnOrder) => itemOnOrder.item.shopId === req.session.shopId)
+    const items = foundOrder.itemOnOrders.filter((itemOnOrder) => itemOnOrder.item.shopId === session.user.shopId)
     return res.status(200).json(address, id, items)
   } catch (err) {
     return handleErrors(res, err)

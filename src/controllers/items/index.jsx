@@ -4,37 +4,9 @@ import handleErrors from '@/controllers/_helpers/handleErrors'
 
 const controllersItemsIndex = async (req, res) => {
   try {
-    // Filters
-    const q = req.query.q || ''
-    const orderBy = req.query.orderBy || 'id'
-    const sortBy = req.query.sortBy || 'asc'
+    const foundItems = await prisma.Item.findMany({})
 
-    // Pagination
-    const take = 40
-    const page = Number(req.query.page || '1')
-    const skip = (page - 1) * take
-
-    // Common Where Query
-    const where = {
-      title: {
-        contains: q
-      }
-    }
-
-    const totalItems = await prisma.Item.count({ where })
-    const foundItems = await prisma.Item.findMany({
-      take,
-      skip,
-      where,
-      orderBy: {
-        [orderBy]: sortBy
-      }
-    })
-
-    return res.status(200).json({
-      Items: foundItems,
-      meta: { currentPage: page, totalPages: Math.ceil(totalItems / take) }
-    })
+    return res.status(200).json(foundItems)
   } catch (err) {
     return handleErrors(res, err)
   }

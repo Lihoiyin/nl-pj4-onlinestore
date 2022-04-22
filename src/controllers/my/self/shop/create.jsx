@@ -7,16 +7,19 @@ import { getSession } from 'next-auth/react'
 const controllersApiMyShopCreate = async (req, res) => {
   try {
     const session = await getSession({ req })
-    console.log(session)
     const { body } = req
     const verifiedData = await shopSchema.validate(body, { abortEarly: false, stripUnknown: true })
 
     const newShop = await prisma.shop.create({
       data: {
         name: verifiedData.name,
-        phoneNum: verifiedData.description,
+        phoneNum: Number(verifiedData.phoneNum),
         logo: verifiedData.logo || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg',
-        userId: Number(req.session.userId)
+        user: {
+          connect: {
+            id: session.user.id
+          }
+        }
       }
     })
 

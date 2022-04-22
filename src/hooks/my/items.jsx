@@ -5,28 +5,28 @@ import produce from 'immer'
 import { handleErrors, fetcher } from '@/hooks/_utils'
 import { useRouter } from 'next/router'
 
-export default function useItems() {
+export default function useMyItems() {
   const { isReady } = useRouter()
   const { data, error, mutate } = useSWR(isReady ? '/api/items' : null, fetcher)
 
-  const createItem = async (values) => {
+  const createMyItem = async (values) => {
     await axios({
       method: 'POST',
       url: '/api/my/items',
       data: values
     }).then((resp) => {
       mutate(produce(data, (draft) => {
-        draft.items.push(resp.data)
+        draft.push(resp.data)
       }))
     }).catch(handleErrors)
   }
-
+  console.log(data)
   return {
     meta: data?.meta,
-    items: data?.items || [],
+    items: data || [],
     isLoading: !error && !data,
     isError: error,
     errorMessage: error?.response?.data?.message,
-    createItem
+    createMyItem
   }
 }

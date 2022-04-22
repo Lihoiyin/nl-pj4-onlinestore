@@ -30,3 +30,5 @@ export default function CompsLayoutsNavbar() {
     </Navbar>
   )
 }
+
+export const cart = []

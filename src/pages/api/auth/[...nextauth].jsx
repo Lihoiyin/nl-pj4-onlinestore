@@ -1,8 +1,12 @@
 import NextAuth from 'next-auth'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+
+import prisma from '@/controllers/_helpers/prisma'
 
 export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     // OAuth authentication providers...
     FacebookProvider({
@@ -20,5 +24,12 @@ export default NextAuth({
         }
       }
     })
-  ]
+  ],
+  callbacks: {
+    async session({ session, user }) {
+      session.user = user // eslint-disable-line
+
+      return session
+    }
+  }
 })

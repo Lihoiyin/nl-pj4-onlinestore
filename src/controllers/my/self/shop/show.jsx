@@ -6,12 +6,13 @@ import { getSession } from 'next-auth/react'
 const controllersApiMySelfShow = async (req, res) => {
   try {
     const session = await getSession({ req })
-    const foundUser = await prisma.user.findUnique({
+    const foundUser = await prisma.Item.findUnique({
       where: {
         id: session.user.id
       },
       include: {
-        shop: true
+        shop: true,
+        profile: true
       }
     })
     return res.status(200).json(foundUser)
