@@ -16,6 +16,7 @@ export default function CompsLayoutsNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} href="/createshop"><a className="nav-link">Create Shop</a></Nav.Link>
             <Nav.Link as={Link} href="/createprofile"><a className="nav-link">Create Profile</a></Nav.Link>
+            <Nav.Link as={Link} href="/createitem"><a className="nav-link">Create Item</a></Nav.Link>
             <Nav.Link as={Link} href="/items"><a className="nav-link">Items</a></Nav.Link>
             <Nav.Link as={Link} href="/private"><a className="nav-link">Private</a></Nav.Link>
             {

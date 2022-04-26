@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import useProfile from '@/hooks/my/profile'
 import useItems from '@/hooks/items'
 import useMyItems from '@/hooks/my/items'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
@@ -14,20 +13,22 @@ const initialValues = {
 export default function CreateItem() {
   const { createItems } = useMyItems()
   const { items } = useItems()
-  console.log(self)
+  console.log(items)
   return (
     <div>
       <Head>
-        <title>Create Profile</title>
+        <title>Create Item</title>
       </Head>
       <Formik
         initialValues={initialValues}
-        onSubmit={(data) => createProfile(data)}
+        onSubmit={(data) => createItems(data)}
         enableReinitialize
         validationSchema={
         Yup.object({
           name: Yup.string().required().label('Name'),
-          phoneNum: Yup.string().required().label('Phone Number')
+          description: Yup.string().required().label('Description'),
+          category: Yup.string().required().label('Category'),
+          image: Yup.mixed().required()
         })
       }
       >
@@ -50,16 +51,45 @@ export default function CreateItem() {
             </div>
 
             <div className="mb-3">
-              <label>Phone Number</label>
+              <label>Description</label>
               <Field
-                className={`form-control ${e?.phoneNum && t?.phoneNum && 'is-invalid'}`}
-                name="phoneNum"
+                className={`form-control ${e?.description && t?.description && 'is-invalid'}`}
+                name="description"
                 type="text"
                 placeholder="00000000"
               />
               <ErrorMessage
                 className="invalid-feedback"
-                name="phoneNum"
+                name="description"
+                component="div"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label>Category</label>
+              <Field
+                className={`form-control ${e?.category && t?.category && 'is-invalid'}`}
+                name="category"
+                type="text"
+                placeholder="Food"
+              />
+              <ErrorMessage
+                className="invalid-feedback"
+                name="category"
+                component="div"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label>image</label>
+              <Field
+                className={`form-control ${e?.image && t?.image && 'is-invalid'}`}
+                name="image"
+                type="file"
+              />
+              <ErrorMessage
+                className="invalid-feedback"
+                name="image"
                 component="div"
               />
             </div>
@@ -69,10 +99,7 @@ export default function CreateItem() {
         )
       }
       </Formik>
-      <div>
-        items Id:{items?.id}
-        items name:{items?.name}
-      </div>
+
     </div>
   )
 }
