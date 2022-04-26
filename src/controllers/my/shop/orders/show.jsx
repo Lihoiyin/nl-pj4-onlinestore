@@ -3,7 +3,7 @@ import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
 import { getSession } from 'next-auth/react'
 
-const controllersApiMyShopOrdersShow = async (req, res) => {
+const controllersMyShopOrdersShow = async (req, res) => {
   try {
     const session = await getSession({ req })
     const { query: { orderId } } = req
@@ -24,4 +24,4 @@ const controllersApiMyShopOrdersShow = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiMyShopOrdersShow)
+  .use(controllersMyShopOrdersShow)

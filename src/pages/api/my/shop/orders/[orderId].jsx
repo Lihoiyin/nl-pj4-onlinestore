@@ -1,7 +1,7 @@
 import nc from '@/controllers/_helpers/nc'
-import controllersApiMyShopOrdersShow from '@/controllers/my/shop/orders/show'
-import controllersApiMyShopOrdersUpdate from '@/controllers/my/shop/orders/update'
+import controllersMyShopOrdersShow from '@/controllers/my/shop/orders/show'
+import controllersMyShopOrdersUpdate from '@/controllers/my/shop/orders/update'
 
 export default nc()
-  .get(controllersApiMyShopOrdersShow)
-  .put(controllersApiMyShopOrdersUpdate)
+  .get(controllersMyShopOrdersShow)
+  .put(controllersMyShopOrdersUpdate)

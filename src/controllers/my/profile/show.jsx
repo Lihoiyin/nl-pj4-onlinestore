@@ -3,10 +3,10 @@ import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
 import { getSession } from 'next-auth/react'
 
-const controllersApiMySelfShow = async (req, res) => {
+const controllersMyProfileShow = async (req, res) => {
   try {
     const session = await getSession({ req })
-    const foundUser = await prisma.Item.findUnique({
+    const foundUser = await prisma.user.findUnique({
       where: {
         id: session.user.id
       },
@@ -22,4 +22,4 @@ const controllersApiMySelfShow = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiMySelfShow)
+  .use(controllersMyProfileShow)

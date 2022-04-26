@@ -1,11 +1,11 @@
 import nc from '@/controllers/_helpers/nc'
 import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
-import { schema } from '@/controllers/my/items/_schemas'
+import { schema } from '@/controllers/my/shop/items/_schemas'
 import uploadFileAsync from '@/controllers/_helpers/upload-file'
 import { getSession } from 'next-auth/react'
 
-const controllersApiMyItemsUpdate = async (req, res) => {
+const controllersMyItemsUpdate = async (req, res) => {
   try {
     const session = await getSession({ req })
     const { body, query: { itemId } } = req
@@ -32,4 +32,4 @@ const controllersApiMyItemsUpdate = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiMyItemsUpdate)
+  .use(controllersMyItemsUpdate)
