@@ -2,11 +2,11 @@ import axios from 'axios'
 
 import { handleErrors } from '@/hooks/_utils'
 
-export default function useMyProfile() {
-  const createProfile = async (values) => {
+export default function useMyShop() {
+  const createShop = async (values) => {
     await axios({
       method: 'POST',
-      url: '/api/my/self/profile',
+      url: '/api/my/shop',
       data: values
     }).then(() => {
 
@@ -14,6 +14,6 @@ export default function useMyProfile() {
   }
 
   return {
-    createProfile
+    createShop
   }
 }

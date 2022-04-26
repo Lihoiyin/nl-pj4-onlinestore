@@ -3,12 +3,12 @@ import { useRouter } from 'next/router'
 
 import { fetcher } from '@/hooks/_utils'
 
-export default function useItem() {
-  const { query: { itemId } } = useRouter()
-  const { data, error } = useSWR(itemId ? `/api/items/${itemId}` : null, fetcher)
+export default function usePublicShop() {
+  const { query: { shopId } } = useRouter()
+  const { data, error } = useSWR(shopId ? `/api/shop/${shopId}` : null, fetcher)
 
   return {
-    item: data,
+    shop: data,
     isLoading: !error && !data,
     isError: error,
     errorMessage: error?.response?.data?.message
