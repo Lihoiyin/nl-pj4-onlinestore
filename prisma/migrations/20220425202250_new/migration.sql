@@ -1,9 +1,6 @@
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('paid', 'processing', 'completed');
 
--- CreateEnum
-CREATE TYPE "Process" AS ENUM ('initialized', 'packing', 'sent');
-
 -- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
@@ -39,7 +36,6 @@ CREATE TABLE "User" (
     "email" TEXT,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
-    "isShop" BOOLEAN,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -47,17 +43,16 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Shop" (
     "id" SERIAL NOT NULL,
-    "email" TEXT NOT NULL,
     "phoneNum" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "logo" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
     "userId" TEXT
 );
 
 -- CreateTable
 CREATE TABLE "Profile" (
     "id" SERIAL NOT NULL,
-    "email" TEXT NOT NULL,
     "phoneNum" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "userId" TEXT
@@ -69,7 +64,8 @@ CREATE TABLE "Item" (
     "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
-    "Img" TEXT,
+    "category" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
     "shopId" INTEGER NOT NULL
 );
 
@@ -94,7 +90,6 @@ CREATE TABLE "Order" (
 -- CreateTable
 CREATE TABLE "ShopOnOrder" (
     "id" SERIAL NOT NULL,
-    "process" "Process" NOT NULL DEFAULT E'initialized',
     "shopId" INTEGER NOT NULL,
     "orderId" INTEGER NOT NULL
 );

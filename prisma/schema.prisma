@@ -45,16 +45,16 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  isShop        Boolean?
   shop          Shop?
   profile       Profile?
 }
 
 model Shop {
   id          Int           @unique @default(autoincrement())
-  phoneNum    Int
+  phoneNum    String
   name        String
   logo        String
+  category    String
   items       Item[]
   user        User?         @relation(fields: [userId], references: [id])
   userId      String?       @unique
@@ -63,7 +63,7 @@ model Shop {
 
 model Profile {
   id       Int      @unique @default(autoincrement())
-  phoneNum Int
+  phoneNum String
   name     String
   user     User?    @relation(fields: [userId], references: [id])
   userId   String?  @unique
@@ -76,7 +76,8 @@ model Item {
   name         String
   price        Int
   description  String
-  image        String?
+  category     String
+  image        String
   itemOnOrders ItemOnOrder[]
   reviews      Review[]
   shop         Shop          @relation(fields: [shopId], references: [id])
@@ -95,7 +96,6 @@ model ItemOnOrder {
 
 model Order {
   id           Int           @unique @default(autoincrement())
-  status       Status        @default(paid)
   totalPrice   Int
   address      String?
   itemOnOrders ItemOnOrder[]
@@ -104,25 +104,12 @@ model Order {
   profileId    Int
 }
 
-enum Status {
-  paid
-  processing
-  completed
-}
-
 model ShopOnOrder {
-  id      Int     @unique @default(autoincrement())
-  process Process @default(initialized)
-  shop    Shop    @relation(fields: [shopId], references: [id])
+  id      Int   @unique @default(autoincrement())
+  shop    Shop  @relation(fields: [shopId], references: [id])
   shopId  Int
-  order   Order   @relation(fields: [orderId], references: [id])
+  order   Order @relation(fields: [orderId], references: [id])
   orderId Int
-}
-
-enum Process {
-  initialized
-  packing
-  sent
 }
 
 model Review {

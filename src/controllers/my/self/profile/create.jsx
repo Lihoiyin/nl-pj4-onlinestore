@@ -13,8 +13,12 @@ const controllersApiMyProfileCreate = async (req, res) => {
     const newProfile = await prisma.profile.create({
       data: {
         name: verifiedData.name,
-        phoneNum: verifiedData.description,
-        userId: session.user.id
+        phoneNum: verifiedData.phoneNum,
+        user: {
+          connect: {
+            id: session.user.id
+          }
+        }
       }
     })
 

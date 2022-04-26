@@ -11,7 +11,8 @@ const controllersApiMySelfShow = async (req, res) => {
         id: session.user.id
       },
       include: {
-        shop: true
+        shop: true,
+        profile: true
       }
     })
     return res.status(200).json(foundUser)
