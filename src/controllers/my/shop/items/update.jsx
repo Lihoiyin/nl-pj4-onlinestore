@@ -1,9 +1,11 @@
+import { getSession } from 'next-auth/react'
+
 import nc from '@/controllers/_helpers/nc'
 import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
-import { schema } from '@/controllers/my/shop/items/_schemas'
 import uploadFileAsync from '@/controllers/_helpers/upload-file'
-import { getSession } from 'next-auth/react'
+import authenticateUser from '@/controllers/_middlewares/authenticateUser'
+import { schema } from '@/controllers/my/shop/items/_schemas'
 
 const controllersMyItemsUpdate = async (req, res) => {
   try {
@@ -32,4 +34,5 @@ const controllersMyItemsUpdate = async (req, res) => {
 }
 
 export default nc()
+  .use(authenticateUser)
   .use(controllersMyItemsUpdate)

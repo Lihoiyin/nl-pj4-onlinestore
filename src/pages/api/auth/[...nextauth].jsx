@@ -27,7 +27,15 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, user }) {
-      session.user = user // eslint-disable-line
+      const userData = await prisma.user.findUnique({
+        where: { id: user.id },
+        include: {
+          profile: true,
+          show: true
+        }
+      })
+
+      session.user = userData // eslint-disable-line
 
       return session
     }

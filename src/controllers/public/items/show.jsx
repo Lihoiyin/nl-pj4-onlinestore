@@ -5,7 +5,7 @@ import prisma from '@/controllers/_helpers/prisma'
 const controllersPublicItemsShow = async (req, res) => {
   try {
     const { query: { itemId } } = req
-    const foundItem = await prisma.item.findUnique({
+    const foundItem = await prisma.item.findFirst({
       where: {
         id: Number(itemId)
       }

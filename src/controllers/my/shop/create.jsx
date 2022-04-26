@@ -1,9 +1,11 @@
+import { getSession } from 'next-auth/react'
+
 import nc from '@/controllers/_helpers/nc'
 import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
-import { shopSchema } from '@/controllers/my/shop/_schemas'
-import { getSession } from 'next-auth/react'
 import uploadFileAsync from '@/controllers/_helpers/upload-file'
+import authenticateUser from '@/controllers/_middlewares/authenticateUser'
+import { shopSchema } from '@/controllers/my/shop/_schemas'
 
 const controllersMyShopCreate = async (req, res) => {
   try {
@@ -32,4 +34,5 @@ const controllersMyShopCreate = async (req, res) => {
 }
 
 export default nc()
+  .use(authenticateUser)
   .use(controllersMyShopCreate)

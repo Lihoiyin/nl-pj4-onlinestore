@@ -8,7 +8,9 @@ export const schema = yup.object({
     shopId: yup.number().required()
   })),
   itemOnOrders: yup.array().of(yup.object({
-    items: yup.array().of(yup.object({ itemId: yup.number().required() })),
+    items: yup.array().of(yup.object({
+      itemId: yup.number().required()
+    })),
     quantity: yup.number().required(),
     subtotal: yup.number().required()
   }))

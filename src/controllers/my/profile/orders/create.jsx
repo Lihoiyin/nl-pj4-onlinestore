@@ -1,6 +1,8 @@
 import nc from '@/controllers/_helpers/nc'
 import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
+import authenticateUser from '@/controllers/_middlewares/authenticateUser'
+import authenticateProfile from '@/controllers/_middlewares/authenticateProfile'
 import { schema } from '@/controllers/my/profile/orders/_schemas'
 
 const controllersMyOrdersCreate = async (req, res) => {
@@ -13,7 +15,6 @@ const controllersMyOrdersCreate = async (req, res) => {
         totalPrice: verifiedData.totalPrice,
         address: verifiedData.address,
         profileId: verifiedData.profileId,
-        shopId: verifiedData.shopId,
         itemOnOrders: {
           create: verifiedData.itemOnOrders.map((itemOnOrder) => ({
             quantity: itemOnOrder.quantity,
@@ -34,4 +35,6 @@ const controllersMyOrdersCreate = async (req, res) => {
 }
 
 export default nc()
+  .use(authenticateUser)
+  .use(authenticateProfile)
   .use(controllersMyOrdersCreate)
