@@ -5,11 +5,10 @@ import { shopSchema } from '@/controllers/my/self/_schemas'
 import { getSession } from 'next-auth/react'
 import uploadFileAsync from '@/controllers/_helpers/upload-file'
 
-const controllersApiMyShopCreate = async (req, res) => {
+const controllersMyShopCreate = async (req, res) => {
   try {
     const session = await getSession({ req })
     const { body } = req
-    console.log(body);
     const verifiedData = await shopSchema.validate(body, { abortEarly: false, stripUnknown: true })
     await uploadFileAsync(verifiedData, req)
     const newShop = await prisma.shop.create({
@@ -33,4 +32,4 @@ const controllersApiMyShopCreate = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiMyShopCreate)
+  .use(controllersMyShopCreate)

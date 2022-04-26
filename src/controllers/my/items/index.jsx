@@ -4,9 +4,9 @@ import prisma from '@/controllers/_helpers/prisma'
 import { getSession } from 'next-auth/react'
 
 const controllersApiMyItemsIndex = async (req, res) => {
-  const session = await getSession({ req })
   try {
-    const foundItems = await prisma.Item.findMany({
+    const session = await getSession({ req })
+    const foundItems = await prisma.item.findMany({
       where: {
         shopId: Number(session.user.shopId)
       }

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { handleErrors } from '@/hooks/_utils'
 
-export default function useShop() {
+export default function useMyShop() {
   const createShop = async (values) => {
     await axios({
       method: 'POST',

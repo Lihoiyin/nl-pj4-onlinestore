@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { handleErrors } from '@/hooks/_utils'
 
-export default function useProfile() {
+export default function useMyProfile() {
   const createProfile = async (values) => {
     await axios({
       method: 'POST',

@@ -4,7 +4,7 @@ import handleErrors from '@/controllers/_helpers/handleErrors'
 import { profileSchema } from '@/controllers/my/self/_schemas'
 import { getSession } from 'next-auth/react'
 
-const controllersApiMyProfileCreate = async (req, res) => {
+const controllersMyProfileCreate = async (req, res) => {
   try {
     const session = await getSession({ req })
     const { body } = req
@@ -29,4 +29,4 @@ const controllersApiMyProfileCreate = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiMyProfileCreate)
+  .use(controllersMyProfileCreate)

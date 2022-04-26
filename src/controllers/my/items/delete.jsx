@@ -5,7 +5,7 @@ import prisma from '@/controllers/_helpers/prisma'
 const controllersApiMyItemsDelete = async (req, res) => {
   try {
     const { query: { itemId } } = req
-    const deletedItem = await prisma.Item.delete({
+    const deletedItem = await prisma.item.delete({
       where: {
         id: Number(itemId)
       }

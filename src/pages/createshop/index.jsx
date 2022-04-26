@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import useShop from '@/hooks/my/shop'
+import useMyShop from '@/hooks/my/shop'
 import useMySelf from '@/hooks/my/self'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
@@ -11,7 +11,7 @@ const initialValues = {
   logo: null
 }
 export default function CreateShop() {
-  const { createShop } = useShop()
+  const { createShop } = useMyShop()
   const { self } = useMySelf()
   return (
     <div>

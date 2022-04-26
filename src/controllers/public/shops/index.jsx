@@ -2,10 +2,9 @@ import nc from '@/controllers/_helpers/nc'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import prisma from '@/controllers/_helpers/prisma'
 
-const controllersApiShopsIndex = async (req, res) => {
+const controllersPublicShopsIndex = async (req, res) => {
   try {
-    const foundShops = await prisma.shop.findMany({
-    })
+    const foundShops = await prisma.shop.findMany()
     return res.status(200).json(foundShops)
   } catch (err) {
     return handleErrors(res, err)
@@ -13,4 +12,4 @@ const controllersApiShopsIndex = async (req, res) => {
 }
 
 export default nc()
-  .use(controllersApiShopsIndex)
+  .use(controllersPublicShopsIndex)

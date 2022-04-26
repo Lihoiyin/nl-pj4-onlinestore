@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import useProfile from '@/hooks/my/profile'
+import useMyProfile from '@/hooks/my/profile'
 import useMySelf from '@/hooks/my/self'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
@@ -9,7 +9,7 @@ const initialValues = {
   phoneNum: ''
 }
 export default function CreateShop() {
-  const { createProfile } = useProfile()
+  const { createProfile } = useMyProfile()
   const { self } = useMySelf()
   console.log(self)
   return (

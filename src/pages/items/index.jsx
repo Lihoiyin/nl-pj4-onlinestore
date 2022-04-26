@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import useProfile from '@/hooks/my/profile'
+import useMyProfile from '@/hooks/my/profile'
 import useItems from '@/hooks/items'
 import useMyItems from '@/hooks/my/items'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
