@@ -31,7 +31,7 @@ export default NextAuth({
         where: { id: user.id },
         include: {
           profile: true,
-          show: true
+          shop: true
         }
       })
 

@@ -1,13 +1,9 @@
 import formidable from 'formidable'
 import _ from 'lodash'
 import fs from 'fs'
-import { URL } from 'url'
 
-const dirname = `${new URL('.', import.meta.url).pathname}../../tmp`
-if (!fs.existsSync(dirname)) fs.mkdirSync(dirname)
-
-const parseData = (req, res, next) => {
-  const form = formidable({ uploadDir: dirname, keepExtensions: true, multiples: true })
+const parseData = async (req, res, next) => {
+  const form = formidable({ keepExtensions: true, multiples: true })
 
   if (req?.headers?.['content-type']?.includes('multipart/form-data')) {
     form.parse(req, (err, fields, files) => {

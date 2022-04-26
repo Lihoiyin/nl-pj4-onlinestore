@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import useMyProfile from '@/hooks/my/profile'
-import useItems from '@/hooks/items'
-import useMyItems from '@/hooks/my/items'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
@@ -10,9 +8,8 @@ const initialValues = {
   phoneNum: ''
 }
 export default function CreateItem() {
-  const { createItems } = useMyItems()
-  const { items } = useItems()
-  console.log(self)
+  const { createProfile } = useMyProfile()
+
   return (
     <div>
       <Head>
@@ -67,10 +64,6 @@ export default function CreateItem() {
         )
       }
       </Formik>
-      <div>
-        User Id:{self.profile?.id}
-        User name:{self.profile?.name}
-      </div>
     </div>
   )
 }

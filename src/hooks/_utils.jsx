@@ -9,6 +9,11 @@ export const handleErrors = (err) => {
   console.log(err.response) // eslint-disable-line
 
   switch (err.response.status) {
+    case 401:
+    case 403: {
+      toast.error(err.response.data.message)
+      break
+    }
     case 406: {
       err.response.data.errors.forEach((error) => {
         toast.error(error.msg)
@@ -19,4 +24,9 @@ export const handleErrors = (err) => {
       toast.error('Something is wrong with the server')
     }
   }
+}
+
+export const reloadSession = () => {
+  const event = new Event('visibilitychange')
+  document.dispatchEvent(event)
 }

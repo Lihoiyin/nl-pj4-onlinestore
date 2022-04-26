@@ -15,9 +15,26 @@ export default function CompsLayoutsNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} href="/items"><a className="nav-link">Items</a></Nav.Link>
-            <Nav.Link as={Link} href="/createshop"><a className="nav-link">Create Shop</a></Nav.Link>
-            <Nav.Link as={Link} href="/createprofile"><a className="nav-link">Create Profile</a></Nav.Link>
-            <Nav.Link as={Link} href="/createitem"><a className="nav-link">Create Item</a></Nav.Link>
+
+            {
+              session?.user?.profile && (
+                <>
+                  <Nav.Link as={Link} href="/my/profile/orders"><a className="nav-link">My Orders</a></Nav.Link>
+                  <Nav.Link as={Link} href="/my/profile"><a className="nav-link">My Profile</a></Nav.Link>
+                </>
+              )
+            }
+
+            {
+              session?.user?.shop && (
+                <>
+                  <Nav.Link as={Link} href="/my/shop/items"><a className="nav-link">My Items</a></Nav.Link>
+                  <Nav.Link as={Link} href="/my/shop/orders"><a className="nav-link">My Orders</a></Nav.Link>
+                  <Nav.Link as={Link} href="/my/shop"><a className="nav-link">My Shop</a></Nav.Link>
+                </>
+              )
+            }
+
             {
               session ? (
                 <Nav.Link onClick={() => signOut({ callbackUrl: '/' })}>Sign Out</Nav.Link>
