@@ -1,0 +1,8 @@
+- Get new s3 access key
+- Test POST /api/my/shop again to make sure file is stored to s3 properly
+- Test POST /api/my/profile to make sure its saving correctly
+- Shop Items (My Items) [/my/shop/items]
+- Public Items (Items) [/items]
+- User Cart & Checkout (Cart => Checkout) [/my/cart]
+- Shop Orders (My Orders) [/my/shop/orders]
+- User Orders (My Orders) [/my/profile/orders]

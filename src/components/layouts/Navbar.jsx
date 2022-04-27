@@ -31,6 +31,7 @@ export default function CompsLayoutsNavbar() {
                   <Nav.Link as={Link} href="/my/shop/items"><a className="nav-link">My Items</a></Nav.Link>
                   <Nav.Link as={Link} href="/my/shop/orders"><a className="nav-link">My Orders</a></Nav.Link>
                   <Nav.Link as={Link} href="/my/shop"><a className="nav-link">My Shop</a></Nav.Link>
+                  <Nav.Link as={Link} href="/my/shop/createitem"><a className="nav-link">Create Items</a></Nav.Link>
                 </>
               )
             }

@@ -9,7 +9,7 @@ export default function useMyShopItems() {
   const { isReady } = useRouter()
   const { data, error, mutate } = useSWR(isReady ? '/api/my/shop/items' : null, fetcher)
 
-  const createMyItem = async (values) => {
+  const createMyShopItems = async (values) => {
     await axios({
       method: 'POST',
       url: '/api/my/shop/items',
@@ -27,6 +27,6 @@ export default function useMyShopItems() {
     isLoading: !error && !data,
     isError: error,
     errorMessage: error?.response?.data?.message,
-    createMyItem
+    createMyShopItems
   }
 }

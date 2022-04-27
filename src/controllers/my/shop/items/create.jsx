@@ -3,12 +3,13 @@ import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import uploadFileAsync from '@/controllers/_helpers/upload-file'
 import authenticateUser from '@/controllers/_middlewares/authenticateUser'
-
+import { getSession } from 'next-auth/react'
 import { schema } from '@/controllers/my/shop/items/_schemas'
 
 const controllersMyItemsCreate = async (req, res) => {
   try {
     const { body } = req
+    const session = await getSession({ req })
     const verifiedData = await schema.validate(body, { abortEarly: false, stripUnknown: true })
     await uploadFileAsync(verifiedData, req)
     const newItem = await prisma.item.create({
@@ -20,12 +21,12 @@ const controllersMyItemsCreate = async (req, res) => {
         image: verifiedData.image || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg',
         shop: {
           connect: {
-            id: req.body.shopId
+            id: Number(session.user.shop.id)
           }
         }
       }
     })
-
+    console.log(newItem)
     return res.status(201).json(newItem)
   } catch (err) {
     return handleErrors(res, err)

@@ -8,9 +8,10 @@ import authenticateUser from '@/controllers/_middlewares/authenticateUser'
 const controllersMyItemsIndex = async (req, res) => {
   try {
     const session = await getSession({ req })
+    console.log(session)
     const foundItems = await prisma.item.findMany({
       where: {
-        shopId: Number(session.user.shopId)
+        shopId: Number(session.user.shop.id)
       }
     })
     return res.status(200).json(foundItems)

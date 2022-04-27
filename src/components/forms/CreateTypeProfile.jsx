@@ -22,8 +22,9 @@ const shopInitialValues = {
 
 const shopSchema = Yup.object({
   name: Yup.string().required().label('Name'),
-  phoneNum: Yup.string().required().label('Phone Number')
-  // TODO category and logo
+  phoneNum: Yup.string().required().label('Phone Number'),
+  category: Yup.string().required().label('Category'),
+  logo: Yup.mixed().required()
 })
 
 export default function CompsFormsCreateTypeProfile({ userType }) {
