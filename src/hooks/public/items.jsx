@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 export default function usePublicItems() {
   const { isReady } = useRouter()
-  const { data, error } = useSWR(isReady ? ['/api/items'] : null, fetcher)
+  const { data, error } = useSWR(isReady ? ['/api/public/items'] : null, fetcher)
 
   return {
     meta: data?.meta,

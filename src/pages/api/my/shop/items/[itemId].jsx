@@ -7,3 +7,9 @@ export default nc()
   .get(controllersMyItemsShow)
   .put(controllersMyItemsUpdate)
   .delete(controllersMyItemsDelete)
+
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}

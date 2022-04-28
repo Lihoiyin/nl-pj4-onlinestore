@@ -1,9 +1,9 @@
 import useSWR from 'swr'
 import axios from 'axios'
-// import produce from 'immer'
 
 import { handleErrors, fetcher } from '@/hooks/_utils'
 import { useRouter } from 'next/router'
+import { serialize } from 'object-to-formdata'
 
 export default function useMyShopItem() {
   const { query: { itemId }, push } = useRouter()
@@ -13,19 +13,20 @@ export default function useMyShopItem() {
     await axios({
       method: 'PUT',
       url: `/api/my/shop/items/${itemId}`,
-      data: values
+      data: serialize(values, { indices: true })
     }).then(() => {
       mutate()
       push(`/my/shop/items/${itemId}`)
     }).catch(handleErrors)
   }
-  const deleteMyItem = async (values) => {
+
+  const deleteMyItem = async () => {
     await axios({
-      method: 'DElETE',
-      url: `/api/my/shop/items/${itemId}`,
-      data: values
+      method: 'DELETE',
+      url: `/api/my/shop/items/${itemId}`
     }).then(() => {
       mutate()
+      push('/my/shop/items')
     }).catch(handleErrors)
   }
 

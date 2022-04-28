@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import axios from 'axios'
 import produce from 'immer'
+import { serialize } from 'object-to-formdata'
 
 import { handleErrors, fetcher } from '@/hooks/_utils'
 import { useRouter } from 'next/router'
@@ -13,7 +14,7 @@ export default function useMyShopItems() {
     await axios({
       method: 'POST',
       url: '/api/my/shop/items',
-      data: values
+      data: serialize(values, { indices: true })
     }).then((resp) => {
       mutate(produce(data, (draft) => {
         draft.push(resp.data)

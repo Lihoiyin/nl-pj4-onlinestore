@@ -6,34 +6,36 @@ import useMyShopItem from '@/hooks/my/shop/item'
 const itemInitialValues = {
   name: '',
   price: '',
+  description: '',
   category: '',
-  logo: ''
+  image: ''
 }
 
 const itemSchema = Yup.object({
   name: Yup.string().required().label('Name'),
-  phoneNum: Yup.string().required().label('Phone Number'),
+  price: Yup.string().required().label('Price'),
   description: Yup.string().required().label('Description'),
   category: Yup.string().required().label('Category'),
-  logo: Yup.mixed().required()
+  image: Yup.mixed().required().label('Image')
 })
 
 export default function CompsFormsCreateOrEditItem({ createOrEdit }) {
-  const { items, createMyShopItems } = useMyShopItems()
-  const { editMyShopItem } = useMyShopItem()
-  console.log(items)
+  const { createMyShopItems } = useMyShopItems()
+  const { updateMyItem } = useMyShopItem()
+
   const onSubmit = async (data) => {
     if (createOrEdit === 'create') {
       await createMyShopItems(data)
-    } else {
-      await editMyShopItem(data)
+    }
+    if (createOrEdit === 'update') {
+      await updateMyItem(data)
     }
   }
 
   return (
     <Formik
       initialValues={itemInitialValues}
-      onSubmit={onSubmit}
+      onSubmit={(onSubmit)}
       enableReinitialize
       validationSchema={itemSchema}
     >
@@ -106,12 +108,13 @@ export default function CompsFormsCreateOrEditItem({ createOrEdit }) {
                 id="formImage"
                 className={`form-control ${e?.image?.file && t?.image?.file && 'is-invalid'}`}
                 type="file"
+                name="image"
                 onChange={(event) => setFieldValue('image', event.currentTarget.files[0])}
                 accept="image/*"
               />
               <ErrorMessage
                 className="invalid-feedback text-center"
-                name="image"
+                name="Image"
                 component="div"
               />
             </div>

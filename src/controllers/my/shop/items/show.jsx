@@ -12,7 +12,7 @@ const controllersMyItemsShow = async (req, res) => {
     const foundItem = await prisma.item.findFirst({
       where: {
         id: Number(itemId),
-        shopId: Number(session.user.shopId)
+        shopId: Number(session.user.shop.id)
       }
     })
     return res.status(200).json(foundItem)

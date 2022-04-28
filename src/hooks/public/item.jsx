@@ -5,7 +5,7 @@ import { fetcher } from '@/hooks/_utils'
 
 export default function usePublicItem() {
   const { query: { itemId } } = useRouter()
-  const { data, error } = useSWR(itemId ? `/api/items/${itemId}` : null, fetcher)
+  const { data, error } = useSWR(itemId ? `/api/public/items/${itemId}` : null, fetcher)
 
   return {
     item: data,

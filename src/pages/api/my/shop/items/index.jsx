@@ -5,3 +5,9 @@ import controllersMyItemsIndex from '@/controllers/my/shop/items/index'
 export default nc()
   .get(controllersMyItemsIndex)
   .post(controllersMyItemsCreate)
+
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
