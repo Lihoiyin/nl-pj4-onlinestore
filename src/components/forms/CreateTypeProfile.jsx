@@ -116,7 +116,7 @@ export default function CompsFormsCreateTypeProfile({ userType }) {
               )
             }
 
-            <button className="btn btn-primary float-end" type="submit" disabled={isSubmitting}>Submit</button>
+            <button className="btn btn-dark float-end" type="submit" disabled={isSubmitting}>Submit</button>
           </Form>
         )
       }

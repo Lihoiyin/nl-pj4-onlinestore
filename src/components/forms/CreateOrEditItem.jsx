@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import useMyShopItems from '@/hooks/my/shop/items'
 import useMyShopItem from '@/hooks/my/shop/item'
+import { useRouter } from 'next/router'
 
 const itemInitialValues = {
   name: '',
@@ -22,13 +23,16 @@ const itemSchema = Yup.object({
 export default function CompsFormsCreateOrEditItem({ createOrEdit }) {
   const { createMyShopItems } = useMyShopItems()
   const { updateMyItem } = useMyShopItem()
+  const { push } = useRouter()
 
   const onSubmit = async (data) => {
     if (createOrEdit === 'create') {
       await createMyShopItems(data)
+      push('/my/shop/items')
     }
     if (createOrEdit === 'update') {
       await updateMyItem(data)
+      push('/my/shop/items')
     }
   }
 
@@ -119,7 +123,7 @@ export default function CompsFormsCreateOrEditItem({ createOrEdit }) {
               />
             </div>
 
-            <button className="btn btn-primary float-end" type="submit" disabled={isSubmitting}>Submit</button>
+            <button className="btn btn-dark float-end" type="submit" disabled={isSubmitting}>Submit</button>
           </Form>
         )
       }

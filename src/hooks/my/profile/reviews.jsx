@@ -3,14 +3,14 @@ import axios from 'axios'
 import { handleErrors, fetcher } from '@/hooks/_utils'
 import { useRouter } from 'next/router'
 
-export default function useMyProfileOrders() {
+export default function useMyProfileReviews() {
   const { isReady } = useRouter()
-  const { data, error, mutate } = useSWR(isReady ? '/api/my/profile/orders' : null, fetcher)
+  const { data, error, mutate } = useSWR(isReady ? '/api/my/profile/reviews' : null, fetcher)
 
-  const createMyProfileOrders = async (values) => {
+  const createMyProfileReviews = async (values) => {
     await axios({
       method: 'POST',
-      url: '/api/my/profile/orders',
+      url: '/api/my/profile/reviews',
       data: values
     }).then(() => {
       mutate()
@@ -19,10 +19,10 @@ export default function useMyProfileOrders() {
 
   return {
     meta: data?.meta,
-    orders: data || [],
+    reviews: data || [],
     isLoading: !error && !data,
     isError: error,
     errorMessage: error?.response?.data?.message,
-    createMyProfileOrders
+    createMyProfileReviews
   }
 }

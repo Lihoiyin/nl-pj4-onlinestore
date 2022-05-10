@@ -1,5 +1,11 @@
-export default function Home() {
+import usePublicItems from '@/hooks/public/items'
+import CompsPublicCardsItems from '@/components/cards/public/items'
+
+export default function PageMyShopItems() {
+  const { items } = usePublicItems()
+  console.log(items)
+
   return (
-    <h1 className="text-center my-5">Home Page</h1>
+    <CompsPublicCardsItems items={items} />
   )
 }

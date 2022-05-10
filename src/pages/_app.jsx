@@ -3,14 +3,9 @@ import { ToastContainer } from 'react-toastify'
 import { appWithTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { createContext } from 'react'
 import appWithSession from '@/hoc/appWithSession'
 import CompsLayoutsNavbar from '@/components/layouts/Navbar'
-
-const Cart = createContext({
-  myCart: {},
-  setUserName: () => {}
-})
+import { CartProvider } from '@/contexts/CartProvoider'
 
 function MyApp({ Component, pageProps }) {
   const { status, data: session } = useSession()
@@ -29,8 +24,8 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <Cart.Provider>
-      <CompsLayoutsNavbar cart={Cart} />
+    <CartProvider>
+      <CompsLayoutsNavbar />
       <Component {...pageProps} />
       <ToastContainer
         position="bottom-left"
@@ -43,7 +38,7 @@ function MyApp({ Component, pageProps }) {
         draggable
         pauseOnHover
       />
-    </Cart.Provider>
+    </CartProvider>
   )
 }
 

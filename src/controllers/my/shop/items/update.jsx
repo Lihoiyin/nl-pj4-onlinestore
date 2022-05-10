@@ -22,10 +22,7 @@ const controllersMyItemsUpdate = async (req, res) => {
         id: Number(itemId)
       },
       data: {
-        name: verifiedData.name,
-        description: verifiedData.description,
-        price: verifiedData.price,
-        image: verifiedData.image || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg',
+        ...verifiedData,
         shopId: Number(session.user.shop.id)
       }
     })

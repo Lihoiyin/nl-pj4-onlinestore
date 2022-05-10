@@ -5,5 +5,6 @@ export const schema = yup.object({
   description: yup.string().required(),
   price: yup.number().required(),
   image: yup.mixed(),
-  category: yup.string().required()
+  category: yup.string().required(),
+  inStock: yup.number().required()
 })

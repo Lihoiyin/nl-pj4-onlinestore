@@ -9,17 +9,17 @@ export default function CompsPublicCardsItems({ items }) {
       { items.map((item) => (
         <Card
           key={item.id}
-          style={{ width: '18rem' }}
+          style={{ width: '18rem', margin: '20px' }}
           onClick={() => push(`/my/shop/items/${item.id}`)}
         >
           <Card.Img id={item.id} variant="top" src={item.image} />
           <Card.Body>
             <Card.Title>{item.name}</Card.Title>
             <Card.Text>
-              {item.price}
+              $ {item.price}
             </Card.Text>
             <Card.Text>
-              {item.category}
+              Description: {item.category}
             </Card.Text>
           </Card.Body>
         </Card>

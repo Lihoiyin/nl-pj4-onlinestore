@@ -30,13 +30,21 @@ export default NextAuth({
       const userData = await prisma.user.findFirst({
         where: { id: user.id },
         include: {
-          profile: true,
+          profile: {
+            include: {
+              likeList: true,
+              record: true
+            }
+          },
           shop: true
-        }
+        },
+
+        rejectOnNotFound: true
+
       })
 
       session.user = userData // eslint-disable-line
-
+      console.log(session.user)
       return session
     }
   }

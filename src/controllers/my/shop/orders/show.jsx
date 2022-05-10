@@ -14,7 +14,17 @@ const controllersMyShopOrdersShow = async (req, res) => {
         id: Number(orderId)
       },
       include: {
-        itemOnOrders: true
+        itemOnOrders: {
+          include: {
+            item: {
+              include: {
+                shop: true
+              }
+            }
+          }
+        },
+        shop: true,
+        profile: true
       }
     })
     const { address, id } = foundOrder

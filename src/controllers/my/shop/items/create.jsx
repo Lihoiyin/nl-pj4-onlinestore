@@ -17,11 +17,7 @@ const controllersMyItemsCreate = async (req, res) => {
 
     const newItem = await prisma.item.create({
       data: {
-        name: verifiedData.name,
-        description: verifiedData.description,
-        category: verifiedData.category,
-        price: verifiedData.price,
-        image: verifiedData.image || 'https://lab-restful-api.s3.ap-northeast-2.amazonaws.com/profile.jpeg',
+        ...verifiedData,
         shop: {
           connect: {
             id: Number(session.user.shop.id)

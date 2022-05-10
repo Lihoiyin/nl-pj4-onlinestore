@@ -15,13 +15,13 @@ export default function CompsCardsMyShopItem() {
       <Card.Body>
         <Card.Title>{item?.name}</Card.Title>
         <Card.Text>
-          {item?.price}
+          $ {item?.price}
         </Card.Text>
         <Card.Text>
           {item?.category}
         </Card.Text>
         <Card.Text>
-          {item?.description}
+          Description: {item?.description}
         </Card.Text>
         <Button variant="primary" onClick={() => push(`/my/shop/updateitem/${item?.id}`)}>Edit</Button>
         <Button danger="danger" onClick={() => deleteMyItem()}>Delete</Button>

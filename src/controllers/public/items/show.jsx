@@ -8,6 +8,9 @@ const controllersPublicItemsShow = async (req, res) => {
     const foundItem = await prisma.item.findFirst({
       where: {
         id: Number(itemId)
+      },
+      include: {
+        shop: true
       }
     })
     return res.status(200).json(foundItem)

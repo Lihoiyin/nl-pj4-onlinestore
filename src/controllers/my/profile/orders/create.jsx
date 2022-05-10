@@ -1,33 +1,47 @@
+import { getSession } from 'next-auth/react'
+
 import nc from '@/controllers/_helpers/nc'
 import prisma from '@/controllers/_helpers/prisma'
 import handleErrors from '@/controllers/_helpers/handleErrors'
 import authenticateUser from '@/controllers/_middlewares/authenticateUser'
-import authenticateProfile from '@/controllers/_middlewares/authenticateProfile'
+
 import { schema } from '@/controllers/my/profile/orders/_schemas'
 
 const controllersMyOrdersCreate = async (req, res) => {
   try {
     const { body } = req
+    const session = await getSession({ req })
     const verifiedData = await schema.validate(body, { abortEarly: false, stripUnknown: true })
-
     const newOrder = await prisma.order.create({
       data: {
         totalPrice: verifiedData.totalPrice,
         address: verifiedData.address,
-        profileId: verifiedData.profileId,
+        profile:
+        {
+          connect: {
+            id: session.user.profile.id
+          }
+        },
         itemOnOrders: {
-          create: verifiedData.itemOnOrders.map((itemOnOrder) => ({
-            quantity: itemOnOrder.quantity,
-            subtotal: itemOnOrder.subtotal,
-            connect: itemOnOrder.items.map((item) => ({ itemId: Number(item.itemId) })) || []
-          })) || []
+          create: body.itemOnOrders.map((itemOnOrder) => ({
+            quantity: Number(itemOnOrder.quantity),
+            subtotal: Number(itemOnOrder.subtotal),
+            item: {
+              connect: {
+                id: Number(itemOnOrder.itemId)
+              }
+            }
+          }))
         },
         shopOnOrders: {
-          create: verifiedData.shops.map((shop) => ({ shopId: Number(shop.shopId) })) || []
+          create: body.shops.map((shop) => ({ shopId: Number(shop.shopId) })) || []
         }
+      },
+      include: {
+        itemOnOrders: true,
+        shopOnOrders: true
       }
     })
-
     return res.status(201).json(newOrder)
   } catch (err) {
     return handleErrors(res, err)
@@ -36,5 +50,4 @@ const controllersMyOrdersCreate = async (req, res) => {
 
 export default nc()
   .use(authenticateUser)
-  .use(authenticateProfile)
   .use(controllersMyOrdersCreate)
